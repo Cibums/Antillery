@@ -7,10 +7,12 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector2Int[] path = null;
     private int currentTargetPositionIndex = 1;
     public float arrivalThreshold = 0.1f;
+    public int Health = 100;
 
     public void StartEnemy(Enemy enemy)
     {
         this.enemy = enemy;
+        Health = enemy.Health;
         path = MapController.currentMap.MapPath;
         transform.position = new Vector3(path[0].x, path[0].y, 0);
     }
@@ -18,6 +20,12 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         MoveTowardsTarget();
+    }
+
+    public void DamageEnemy()
+    {
+        Health--;
+        OnEnemyHealthChanged();
     }
 
     private void MoveTowardsTarget()
@@ -41,8 +49,9 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("Reached the last element in the path.");
 
             PlayerStats.Health--;
+            GameController.instance.OnPlayerHealthChanges();
 
-            GameController.instance.OnHealthUpdates();
+            EnemyController.instance.CheckIfWaveEnded();
 
             Destroy(gameObject);
 
@@ -50,5 +59,17 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         currentTargetPositionIndex++;
+    }
+
+    public void OnEnemyHealthChanged()
+    {
+        Debug.Log($"Health changed to {Health} on {gameObject.name}");
+
+        if (Health <= 0)
+        {
+            EnemyController.instance.CheckIfWaveEnded();
+            Destroy(gameObject); 
+            return;
+        }
     }
 }

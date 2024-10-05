@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TowerController : MonoBehaviour
 {
-    public static TowerController? instance;
+    public static TowerController instance;
     public Tower[] Towers;
 
     [SerializeField]
@@ -45,10 +45,11 @@ public class TowerController : MonoBehaviour
         string[] targetTags = new string[]
         {
             "Obstacle",
-            "Tower"
+            "Tower",
+            "Path"
         };
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, Towers[towerIndex].radius);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, Towers[towerIndex].towerSize);
 
         foreach (Collider2D collider in colliders)
         {

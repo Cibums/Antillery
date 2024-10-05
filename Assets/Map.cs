@@ -59,12 +59,8 @@ public class Map : ScriptableObject
         {
             if (previous.HasValue)
             {
-                Debug.Log($"Testing for element:{element.x}, {element.y} and previous:{previous.Value.x}, {previous.Value.y}");
-
                 if (element.x == previous.Value.x)
                 {
-                    Debug.Log("X is the same");
-
                     int yDiff = element.y - previous.Value.y;
                     int yDiffAbs = Mathf.Abs(yDiff);
                     int direction = yDiff / yDiffAbs;
@@ -75,19 +71,14 @@ public class Map : ScriptableObject
                         int y = previous.Value.y + (yOffset * direction);
 
                         newMapPath.Add(new Vector2Int(x,y));
-                        Debug.Log($"Placed path at x:{x}, y: {y}");
                     }
                 }
                 
                 if (element.y == previous.Value.y)
                 {
-                    Debug.Log("Y is the same");
-
                     int xDiff = element.x - previous.Value.x;
                     int xDiffAbs = Mathf.Abs(xDiff);
                     int direction = xDiff / xDiffAbs;
-
-                    Debug.Log($"xDiff:{xDiff}; xDiffAbs:{xDiffAbs}; direction:{direction}");
 
                     for (int xOffset = 1; xOffset < xDiffAbs; xOffset++)
                     {
@@ -95,7 +86,6 @@ public class Map : ScriptableObject
                         int x = previous.Value.x + (xOffset * direction);
 
                         newMapPath.Add(new Vector2Int(x, y));
-                        Debug.Log($"Placed path at x:{x}, y: {y}");
                     }
                 }
             }

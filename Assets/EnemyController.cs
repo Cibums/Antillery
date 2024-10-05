@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -9,7 +10,7 @@ public class EnemyController : MonoBehaviour
     public GameObject enemyPrefab;
 
     private static int waveIndex = 0;
-    private static bool waveIsOngoing = false;
+    public static bool waveIsOngoing = false;
 
     public static EnemyController instance;
 
@@ -21,15 +22,25 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartNextWave();
+        }
+    }
+
     public void StartNextWave()
     {
         if (waveIsOngoing)
         {
+            Debug.LogWarning("Previous wave till ongoing");
             return;
         }
 
-        waveIsOngoing = true;
+        Debug.LogWarning("Starting next wave");
 
+        waveIsOngoing = true;
         StartCoroutine(StartWaveClock());
     }
 
@@ -43,6 +54,15 @@ public class EnemyController : MonoBehaviour
         }
 
         waveIndex++;
-        waveIsOngoing = false;
+    }
+
+    public void CheckIfWaveEnded()
+    {
+        var enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Count();
+        Debug.Log($"Enemies Left: {enemyCount}");
+        if (enemyCount <= 1)
+        {
+            waveIsOngoing = false;
+        }
     }
 }

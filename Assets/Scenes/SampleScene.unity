@@ -297,6 +297,23 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
     - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
     - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+  - enemies:
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+  - enemies:
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
+    - {fileID: 11400000, guid: a8bc0728609e2624c9018286199f7115, type: 2}
   enemyPrefab: {fileID: 6804612890818926500, guid: f1088583d90201e4198fab0cccac4e88, type: 3}
 --- !u!114 &1041303111
 MonoBehaviour:

@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void OnHealthUpdates()
+    public void OnPlayerHealthChanges()
     {
         Debug.Log($"Health is {PlayerStats.Health}");
 

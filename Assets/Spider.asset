@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Graphics: {fileID: 0}
   EnemyName: Spider
-  Health: 100
+  Health: 5
   Speed: 1
   Flying: 0
   HasProtectiveLayer: 0
