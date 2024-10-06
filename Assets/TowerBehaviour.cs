@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class TowerBehaviour : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public Transform rangeCircle;
+    public Transform sizeCircle;
+
+    public float SupportMultiplier = 1.0f;
 
     private Tower tower;
+
+    private void Update()
+    {
+        ShowCircles(!EnemyController.waveIsOngoing);
+    }
 
     public void UpdateTower(Tower tower)
     {
@@ -26,6 +34,29 @@ public class TowerBehaviour : MonoBehaviour
             case nameof(ProjectileTower):
                 StartCoroutine(StartProjectileClock(tower as ProjectileTower));
                 break;
+            case nameof(SupportiveTower):
+                IncreaseOfNearbyTowersBy((tower as SupportiveTower));
+                break;
+        }
+    }
+
+    void IncreaseOfNearbyTowersBy(SupportiveTower tower)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, tower.range);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Tower"))
+            {
+                TowerBehaviour towerBehaviour = collider.gameObject.GetComponent<TowerBehaviour>();
+
+                if (towerBehaviour.tower is SupportiveTower)
+                {
+                    continue;
+                }
+
+                towerBehaviour.SupportMultiplier += tower.supportRate;
+            }
         }
     }
 
@@ -33,7 +64,7 @@ public class TowerBehaviour : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1 / projectileTower.shootingSpeed);
+            yield return new WaitForSeconds(1.0f / (projectileTower.shootingSpeed * SupportMultiplier));
 
             if (EnemyController.waveIsOngoing)
             {
@@ -43,9 +74,26 @@ public class TowerBehaviour : MonoBehaviour
         }
     }
 
+    private void ShowCircles(bool state)
+    {
+        if (state)
+        {
+            rangeCircle.localScale = new Vector3(tower.range * 2, tower.range * 2, 1);
+            rangeCircle.gameObject.SetActive(true);
+
+            sizeCircle.localScale = new Vector3(tower.towerSize * 2, tower.towerSize * 2, 1);
+            sizeCircle.gameObject.SetActive(true);
+
+            return;
+        }
+
+        rangeCircle.gameObject.SetActive(false);
+        sizeCircle.gameObject.SetActive(false);
+    }
+
     private void ShootNearbyEnemy(ProjectileTower projectileTower)
     {
-        var enemy = FindNearestEnemy(projectileTower.shootingRange);
+        var enemy = FindNearestEnemy(projectileTower.range);
 
         if (enemy == null)
         {

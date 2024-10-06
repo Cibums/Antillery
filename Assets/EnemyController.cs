@@ -56,6 +56,8 @@ public class EnemyController : MonoBehaviour
 
     public void CheckIfWaveEnded()
     {
+        Debug.Log($"all enemies length: {allEnemies.Length}");
+
         var enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Count();
         Debug.Log($"Enemies Left: {enemyCount}");
         if (enemyCount <= 1)

@@ -25,11 +25,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-#if UNITY_EDITOR
-        // This code will only run in the Unity Editor
-        speedMultiplier = 5;
-#endif
-
         UpdateGraphicsOrder();
         MoveTowardsTarget();
     }

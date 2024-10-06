@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b288c66c0218f4b9a17959f8ad378c, type: 3}
+  m_Name: BlueSpider
+  m_EditorClassIdentifier: 
+  Graphics: {fileID: 5472723077348734029, guid: 5f1f586adc1fbae4fbefb1f02cc4c9f8, type: 3}
+  EnemyName: Blue Spider
+  Health: 2
+  Speed: 2.5
+  Flying: 0
+  HasProtectiveLayer: 0

@@ -8,7 +8,11 @@ public class TowerController : MonoBehaviour
     public static TowerController instance;
     public Tower[] AllTowers;
 
+    [HideInInspector]
     public static bool isPlacing = false;
+
+    public Transform rangeCircle;
+    public Transform sizeCircle;
 
     private int selectedTowerIndex = 0;
 
@@ -25,6 +29,14 @@ public class TowerController : MonoBehaviour
 
     void Update()
     {
+        if (isPlacing)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            worldPosition.z = 0;
+            ShowCirclesAtPosition(true, new Vector2(worldPosition.x, worldPosition.y));
+        }
+
         if (Input.GetMouseButtonDown(0) && isPlacing && !GameController.isGameOver)
         {
             PlaceTower(selectedTowerIndex);
@@ -43,9 +55,31 @@ public class TowerController : MonoBehaviour
         InterfaceController.Instance.SetBuyPanelState(false);
     }
 
+    private void ShowCirclesAtPosition(bool state, Vector2? pos = null)
+    {
+        if (state && pos.HasValue)
+        {
+            Tower tower = AllTowers[selectedTowerIndex];
+
+            rangeCircle.parent.position = pos.Value;
+
+            rangeCircle.localScale = new Vector3(tower.range * 2, tower.range * 2, 1);
+            rangeCircle.gameObject.SetActive(true);
+
+            sizeCircle.localScale = new Vector3(tower.towerSize * 2, tower.towerSize * 2, 1);
+            sizeCircle.gameObject.SetActive(true);
+
+            return;
+        }
+
+        rangeCircle.gameObject.SetActive(false);
+        sizeCircle.gameObject.SetActive(false);
+    }
+
     public void StopPlacement()
     {
         isPlacing = false;
+        ShowCirclesAtPosition(false);
         InterfaceController.Instance.SetBuyPanelState(true);
     }
 
