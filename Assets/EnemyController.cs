@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
         {
             Instantiate(enemyPrefab).GetComponent<EnemyBehaviour>().StartEnemy(enemy);
 
-            yield return new WaitForSeconds(Mathf.Clamp(10 / waveIndex, 0.5f, 1.0f));
+            yield return new WaitForSeconds(Mathf.Clamp(10 / (waveIndex + 1), 0.5f, 1.0f));
         }
 
         waveIndex++;
