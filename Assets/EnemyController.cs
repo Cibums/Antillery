@@ -34,6 +34,8 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+        PlayerStats.Round++;
+
         Debug.LogWarning("Starting next wave");
 
         AudioController.instance.UpdateMusic();
@@ -48,7 +50,7 @@ public class EnemyController : MonoBehaviour
         {
             Instantiate(enemyPrefab).GetComponent<EnemyBehaviour>().StartEnemy(enemy);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(Mathf.Clamp(10 / waveIndex, 0.5f, 1.0f));
         }
 
         waveIndex++;
@@ -80,7 +82,7 @@ public class EnemyController : MonoBehaviour
 
         int count = Waves[waveIndex].enemies.Count;
 
-        for (int i = 0; i < Mathf.RoundToInt(count / 3); i++)
+        for (int i = 0; i < Mathf.RoundToInt(count / Mathf.Clamp(3 / (waveIndex / 2),1,3)); i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, allEnemies.Length);
             var enemy = allEnemies[randomIndex];

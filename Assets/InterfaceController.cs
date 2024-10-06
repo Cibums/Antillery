@@ -19,6 +19,12 @@ public class InterfaceController : MonoBehaviour
     public Transform ButtonContentPanel;
     public Transform GameOverPanel;
     public TMPro.TMP_Text moneyText;
+    public TMPro.TMP_Text healthText;
+    public TMPro.TMP_Text roundText;
+
+    public Transform informationBoxPanel;
+    public TMPro.TMP_Text informationContent;
+    public TMPro.TMP_Text informationTitle;
 
     private void Start()
     {
@@ -36,6 +42,8 @@ public class InterfaceController : MonoBehaviour
     private void Update()
     {
         moneyText.SetText($"Wallet: ${PlayerStats.Money}");
+        healthText.SetText($"Health: {PlayerStats.Health}");
+        roundText.SetText($"Round: {PlayerStats.Round}");
     }
 
     public void SetBuyPanelState(bool state)
@@ -52,5 +60,20 @@ public class InterfaceController : MonoBehaviour
     public void PlayAgain()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OpenInformtationBox(int towerIndex)
+    {
+        Tower tower = TowerController.instance.AllTowers[towerIndex];
+
+        informationTitle.SetText(tower.towerName);
+        informationContent.SetText(tower.towerDescription);
+
+        informationBoxPanel.gameObject.SetActive(true);
+    }
+
+    public void CloseInformationBox()
+    {
+        informationBoxPanel.gameObject.SetActive(false);
     }
 }

@@ -132,7 +132,7 @@ public class TowerBehaviour : MonoBehaviour
         StartCoroutine(LaunchProjectile(enemy.transform.position));
 
         Debug.Log($"{gameObject} is shooting towards {enemy}");
-        AudioController.PlaySound(1, 0.3f);
+        AudioController.PlaySound(1, 0.1f);
 
         var enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
         enemyBehaviour.DamageEnemy();

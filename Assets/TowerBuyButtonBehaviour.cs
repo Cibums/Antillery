@@ -17,4 +17,9 @@ public class TowerBuyButtonBehaviour : MonoBehaviour
     {
         TowerController.instance.StartPlacement(this);
     }
+
+    public void OpenInformationBox()
+    {
+        InterfaceController.Instance.OpenInformtationBox(towerIndex);
+    }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb309f8bc2daafd48b8698812863391a, type: 3}
+  m_Name: HypeMan
+  m_EditorClassIdentifier: 
+  towerName: Hype Man
+  towerDescription: Not very good at anything except being a nice guy. This will
+    increase the shooting speed of any tower by 40% if they are in range of him.
+  range: 2
+  sprite: {fileID: 21300000, guid: cbf0e501d7cc0ec478b17d203e37e22c, type: 3}
+  towerSize: 0.65
+  Cost: 200
+  supportRate: 0.4
