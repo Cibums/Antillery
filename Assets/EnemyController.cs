@@ -26,14 +26,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartNextWave();
-        }
-    }
-
     public void StartNextWave()
     {
         if (waveIsOngoing)
@@ -46,6 +38,7 @@ public class EnemyController : MonoBehaviour
 
         AudioController.instance.UpdateMusic();
         waveIsOngoing = true;
+        InterfaceController.Instance.SetBuyPanelState(false);
         StartCoroutine(StartWaveClock());
     }
 
@@ -74,6 +67,7 @@ public class EnemyController : MonoBehaviour
             }
 
             waveIsOngoing = false;
+            InterfaceController.Instance.SetBuyPanelState(true);
             AudioController.instance.UpdateMusic();
         }
     }

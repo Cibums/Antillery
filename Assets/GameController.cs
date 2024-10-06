@@ -4,6 +4,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    public static bool isGameOver = false;
+
     void Start()
     {
         PlayerStats.Health = 100;
@@ -23,7 +25,8 @@ public class GameController : MonoBehaviour
 
         if (PlayerStats.Health <= 0)
         {
-            //Die
+            isGameOver = true;
+            InterfaceController.Instance.GameOver();
         }
     }
 }

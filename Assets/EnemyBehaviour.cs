@@ -9,6 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
     public float arrivalThreshold = 0.1f;
     public int Health = 100;
 
+    private int speedMultiplier = 1;
+
     private Transform graphics;
 
     public void StartEnemy(Enemy enemy)
@@ -23,6 +25,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
+#if UNITY_EDITOR
+        // This code will only run in the Unity Editor
+        speedMultiplier = 5;
+#endif
+
         UpdateGraphicsOrder();
         MoveTowardsTarget();
     }
@@ -35,13 +42,14 @@ public class EnemyBehaviour : MonoBehaviour
     public void DamageEnemy()
     {
         Health--;
+        PlayerStats.Money += 2;
         AudioController.PlaySound(2);
         OnEnemyHealthChanged();
     }
 
     private void MoveTowardsTarget()
     {
-        float step = enemy.Speed * Time.deltaTime;
+        float step = enemy.Speed * Time.deltaTime * speedMultiplier;
 
         transform.position = Vector2.MoveTowards(transform.position, path[currentTargetPositionIndex], step);
 
@@ -59,7 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("Reached the last element in the path.");
 
-            PlayerStats.Health--;
+            PlayerStats.Health -= Health;
             GameController.instance.OnPlayerHealthChanges();
 
             EnemyController.instance.CheckIfWaveEnded();

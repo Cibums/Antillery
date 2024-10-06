@@ -6,7 +6,11 @@ using UnityEngine;
 public class TowerController : MonoBehaviour
 {
     public static TowerController instance;
-    public Tower[] Towers;
+    public Tower[] AllTowers;
+
+    public static bool isPlacing = false;
+
+    private int selectedTowerIndex = 0;
 
     [SerializeField]
     private GameObject towerPrefab;
@@ -21,10 +25,28 @@ public class TowerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isPlacing && !GameController.isGameOver)
         {
-            PlaceTower(0);
+            PlaceTower(selectedTowerIndex);
         }
+    }
+
+    public void StartPlacement(TowerBuyButtonBehaviour button)
+    {
+        if (AllTowers[selectedTowerIndex].Cost > PlayerStats.Money || GameController.isGameOver)
+        {
+            return;
+        }
+
+        isPlacing = true;
+        selectedTowerIndex = button.towerIndex;
+        InterfaceController.Instance.SetBuyPanelState(false);
+    }
+
+    public void StopPlacement()
+    {
+        isPlacing = false;
+        InterfaceController.Instance.SetBuyPanelState(true);
     }
 
     void PlaceTower(int index)
@@ -36,8 +58,10 @@ public class TowerController : MonoBehaviour
         if (TowerIsPlaceable(index, worldPosition))
         {
             var tower = Instantiate(towerPrefab, worldPosition, Quaternion.identity).GetComponent<TowerBehaviour>();
-            tower.UpdateTower(Towers[index]);
+            tower.UpdateTower(AllTowers[index]);
             AudioController.PlaySound(0);
+            PlayerStats.Money -= AllTowers[selectedTowerIndex].Cost;
+            StopPlacement();
         }
     }
 
@@ -50,7 +74,7 @@ public class TowerController : MonoBehaviour
             "Path"
         };
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, Towers[towerIndex].towerSize);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, AllTowers[towerIndex].towerSize);
 
         foreach (Collider2D collider in colliders)
         {

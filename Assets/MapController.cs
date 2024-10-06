@@ -18,8 +18,6 @@ public class MapController : MonoBehaviour
 
         GenerateBackground();
         GenerateMapPath(currentMap);
-
-        EnemyController.instance.StartNextWave();
     }
 
     private Map GetRandomMap()
