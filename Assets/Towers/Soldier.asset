@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Soldier
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTower
   towerName: Soldier
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 8fea8edbceef8e7468bc881cd5332c0c, type: 3}
   towerSize: 0.8
   shootingRange: 5
   shootingSpeed: 1

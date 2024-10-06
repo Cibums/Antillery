@@ -35,6 +35,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void DamageEnemy()
     {
         Health--;
+        AudioController.PlaySound(2);
         OnEnemyHealthChanged();
     }
 
@@ -78,6 +79,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (Health <= 0)
         {
             EnemyController.instance.CheckIfWaveEnded();
+            AudioController.PlaySound(3);
             Destroy(gameObject); 
             return;
         }

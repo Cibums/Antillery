@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6b288c66c0218f4b9a17959f8ad378c, type: 3}
-  m_Name: Spider
+  m_Name: BrownSpider
   m_EditorClassIdentifier: 
-  Graphics: {fileID: 7326906700935158906, guid: 3801dbbb5f66858479aba17a989498ba, type: 3}
-  EnemyName: Spider
-  Health: 5
-  Speed: 1.5
+  Graphics: {fileID: 63105180980087402, guid: 4119a18f14459a34c8767f44b1cda9af, type: 3}
+  EnemyName: Brown Spider
+  Health: 15
+  Speed: 0.7
   Flying: 0
   HasProtectiveLayer: 0

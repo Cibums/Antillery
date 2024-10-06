@@ -37,6 +37,7 @@ public class TowerController : MonoBehaviour
         {
             var tower = Instantiate(towerPrefab, worldPosition, Quaternion.identity).GetComponent<TowerBehaviour>();
             tower.UpdateTower(Towers[index]);
+            AudioController.PlaySound(0);
         }
     }
 

@@ -17,6 +17,8 @@ public class TowerBehaviour : MonoBehaviour
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         collider.radius = tower.towerSize;
 
+        GetComponent<SpriteRenderer>().sprite = tower.sprite;
+
         gameObject.name = $"{tower.towerName}_Tower";
 
         switch (tower.GetType().Name)
@@ -53,6 +55,8 @@ public class TowerBehaviour : MonoBehaviour
         Vector2 direction = (enemy.transform.position - transform.position).normalized;
         float distanceToTarget = Vector2.Distance(transform.position, enemy.transform.position);
 
+        GetComponent<SpriteRenderer>().flipX = enemy.transform.position.x > transform.position.x ? true : false;
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, distanceToTarget);
 
         if (hits.Length > 0)
@@ -81,6 +85,7 @@ public class TowerBehaviour : MonoBehaviour
         StartCoroutine(LaunchProjectile(enemy.transform.position));
 
         Debug.Log($"{gameObject} is shooting towards {enemy}");
+        AudioController.PlaySound(1, 0.3f);
 
         var enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
         enemyBehaviour.DamageEnemy();

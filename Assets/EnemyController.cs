@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +7,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public Wave[] Waves;
+    public Enemy[] allEnemies;
+
+    public List<Wave> Waves;
 
     public GameObject enemyPrefab;
 
@@ -40,6 +44,7 @@ public class EnemyController : MonoBehaviour
 
         Debug.LogWarning("Starting next wave");
 
+        AudioController.instance.UpdateMusic();
         waveIsOngoing = true;
         StartCoroutine(StartWaveClock());
     }
@@ -62,7 +67,30 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"Enemies Left: {enemyCount}");
         if (enemyCount <= 1)
         {
+            if (waveIndex >= 0 && waveIndex == Waves.Count - 1)
+            {
+                var newWave = GenerateNewWave();
+                Waves.Add(newWave);
+            }
+
             waveIsOngoing = false;
+            AudioController.instance.UpdateMusic();
         }
+    }
+
+    private Wave GenerateNewWave()
+    {
+        var newWave = Waves[waveIndex];
+
+        int count = Waves[waveIndex].enemies.Count;
+
+        for (int i = 0; i < Mathf.RoundToInt(count / 3); i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, allEnemies.Length);
+            var enemy = allEnemies[randomIndex];
+            newWave.enemies.Add(enemy);
+        }
+
+        return newWave;
     }
 }
