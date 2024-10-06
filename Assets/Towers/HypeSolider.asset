@@ -15,6 +15,6 @@ MonoBehaviour:
   towerName: Hype Man
   range: 2
   sprite: {fileID: 1512957835, guid: 5092a900ad381b541a88b3eb2f9279d3, type: 3}
-  towerSize: 0.8
+  towerSize: 0.65
   Cost: 200
   supportRate: 0.2

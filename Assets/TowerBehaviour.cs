@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,17 +12,18 @@ public class TowerBehaviour : MonoBehaviour
 
     public float SupportMultiplier = 1.0f;
 
-    private Tower tower;
+    public Tower tower;
 
     private void Update()
     {
-        ShowCircles(!EnemyController.waveIsOngoing);
+        if (tower != null)
+        {
+            ShowCircles(!EnemyController.waveIsOngoing);
+        }
     }
 
-    public void UpdateTower(Tower tower)
+    public void UpdateTower()
     {
-        this.tower = tower;
-
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         collider.radius = tower.towerSize;
 
@@ -29,14 +31,10 @@ public class TowerBehaviour : MonoBehaviour
 
         gameObject.name = $"{tower.towerName}_Tower";
 
-        switch (tower.GetType().Name)
+        if (tower is SupportiveTower)
         {
-            case nameof(ProjectileTower):
-                StartCoroutine(StartProjectileClock(tower as ProjectileTower));
-                break;
-            case nameof(SupportiveTower):
-                IncreaseOfNearbyTowersBy((tower as SupportiveTower));
-                break;
+            Debug.Log("Supporting");
+            IncreaseOfNearbyTowersBy((tower as SupportiveTower));
         }
     }
 
@@ -55,6 +53,7 @@ public class TowerBehaviour : MonoBehaviour
                     continue;
                 }
 
+                Debug.Log($"Increasing speed for: {towerBehaviour.gameObject}");
                 towerBehaviour.SupportMultiplier += tower.supportRate;
             }
         }
@@ -176,5 +175,17 @@ public class TowerBehaviour : MonoBehaviour
         Debug.Log($"Nearest object is: {nearestObject}");
 
         return nearestObject;
+    }
+
+    public void OnPlace(Tower tower)
+    {
+        this.tower = tower;
+
+        switch (tower.GetType().Name)
+        {
+            case nameof(ProjectileTower):
+                StartCoroutine(StartProjectileClock(tower as ProjectileTower));
+                break;
+        }
     }
 }

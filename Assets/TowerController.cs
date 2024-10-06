@@ -45,13 +45,15 @@ public class TowerController : MonoBehaviour
 
     public void StartPlacement(TowerBuyButtonBehaviour button)
     {
+        selectedTowerIndex = button.towerIndex;
+
         if (AllTowers[selectedTowerIndex].Cost > PlayerStats.Money || GameController.isGameOver)
         {
             return;
         }
 
         isPlacing = true;
-        selectedTowerIndex = button.towerIndex;
+        
         InterfaceController.Instance.SetBuyPanelState(false);
     }
 
@@ -92,7 +94,23 @@ public class TowerController : MonoBehaviour
         if (TowerIsPlaceable(index, worldPosition))
         {
             var tower = Instantiate(towerPrefab, worldPosition, Quaternion.identity).GetComponent<TowerBehaviour>();
-            tower.UpdateTower(AllTowers[index]);
+
+            tower.OnPlace(AllTowers[index]);
+
+            var allTowers = GameObject.FindGameObjectsWithTag("Tower");
+
+            foreach (GameObject obj in allTowers)
+            {
+                TowerBehaviour found = obj.GetComponent<TowerBehaviour>();
+                found.SupportMultiplier = 1.0f;
+            }
+
+            foreach (GameObject obj in allTowers)
+            {
+                TowerBehaviour found = obj.GetComponent<TowerBehaviour>();
+                found.UpdateTower();
+            }
+
             AudioController.PlaySound(0);
             PlayerStats.Money -= AllTowers[selectedTowerIndex].Cost;
             StopPlacement();

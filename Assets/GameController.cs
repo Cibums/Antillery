@@ -3,11 +3,13 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-
     public static bool isGameOver = false;
+
+    public int StartingMoney = 300;
 
     void Start()
     {
+        PlayerStats.Money = StartingMoney;
         PlayerStats.Health = 100;
     }
 
