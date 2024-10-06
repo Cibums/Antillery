@@ -9,17 +9,27 @@ public class EnemyBehaviour : MonoBehaviour
     public float arrivalThreshold = 0.1f;
     public int Health = 100;
 
+    private Transform graphics;
+
     public void StartEnemy(Enemy enemy)
     {
         this.enemy = enemy;
         Health = enemy.Health;
         path = MapController.currentMap.MapPath;
         transform.position = new Vector3(path[0].x, path[0].y, 0);
+
+        graphics = Instantiate(enemy.Graphics, transform).transform;
     }
 
     void Update()
     {
+        UpdateGraphicsOrder();
         MoveTowardsTarget();
+    }
+
+    private void UpdateGraphicsOrder()
+    {
+        graphics.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1000 + Mathf.RoundToInt(transform.position.y * 10);
     }
 
     public void DamageEnemy()

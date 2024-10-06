@@ -159,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.1014151, g: 0.4056604, b: 0.16564305, a: 0}
+  m_BackGroundColor: {r: 0.3921569, g: 0.75294125, b: 0.34117648, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -280,6 +280,7 @@ MonoBehaviour:
   gameMaps:
   - {fileID: 11400000, guid: 9564bed59be1524478ecd44f59f5c332, type: 2}
   pathPrefab: {fileID: 1806691032708667812, guid: 642c4d6b56187db4db72e37ccc0079d7, type: 3}
+  grassPrefab: {fileID: 4756963777587655294, guid: c440205214c04d84889bb24cb2f210bc, type: 3}
 --- !u!114 &1041303110
 MonoBehaviour:
   m_ObjectHideFlags: 0
